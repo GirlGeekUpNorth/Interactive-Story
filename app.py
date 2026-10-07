@@ -14,6 +14,12 @@ load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
 
+if not api_key:
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except KeyError:
+        api_key = None
+
 # Create the Gemini client
 if api_key:
     client = genai.Client(api_key=api_key)
